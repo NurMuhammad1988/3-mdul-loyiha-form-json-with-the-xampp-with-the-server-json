@@ -187,21 +187,21 @@ window.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    axios.get("http://localhost:3000/menu").then((data) =>{//bi axiosda qilingani
+    axios.get("http://localhost:3000/menu").then((data) => {
+        //bi axiosda qilingani
 
-    data.data.forEach(({ img, altimg, title, descr, price }) => {
-        new MenuCard(
-            img,
-            altimg,
-            title,
-            descr,
-            price,
-            ".menu .container"
-        ).render();
+        data.data.forEach(({ img, altimg, title, descr, price }) => {
+            new MenuCard(
+                img,
+                altimg,
+                title,
+                descr,
+                price,
+                ".menu .container"
+            ).render();
+        });
     });
 
-    })
- 
     // async function getRecource(url) {//bu qo'lda qilingani
     //     const res = await fetch(url);
     //     return await res.json();
@@ -367,8 +367,44 @@ window.addEventListener("DOMContentLoaded", () => {
             closeModal();
         }, 4000);
     }
+
+    const slides = document.querySelectorAll(".offer__slide"),
+        next = document.querySelector(".offer__slider-next"),
+        prev = document.querySelector(".offer__slider-prev"),
+        total = document.querySelector(".total"),
+        current = document.querySelector(".current")
+    let slideIndex = 1;
+    showSlides(slideIndex);
+    if(slides.length < 10){
+        total.textContent = `0${slides.length}`
+    }else{
+        total.textContent=slides.length
+    }
+    function showSlides(idx) {
+        if (idx > slides.length) {
+            slideIndex = 1;
+        }
+        if(idx < 1){
+            slideIndex=slides.length
+        }
+        slides.forEach((item) => (item.style.display = "none"));
+        slides[slideIndex - 1].style.display = "block";
+    }
+    function plusSlides(idx) {
+        showSlides((slideIndex += idx));
+    }
+    next.addEventListener("click", () => {
+        plusSlides(1);
+    });
+    prev.addEventListener("click", () => {
+        plusSlides(-1);
+    });
+
 });
 
+
+
+// slider 09:30 da qoldi
 // npx json-server --watch db.json //windowsda shunday yozilar ekan
 //3-modul-loyiha-form-json-with-the-xampp-with the server-json local file
 
