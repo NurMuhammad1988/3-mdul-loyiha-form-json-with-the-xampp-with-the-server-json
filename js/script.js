@@ -371,8 +371,8 @@ window.addEventListener("DOMContentLoaded", () => {
     const slides = document.querySelectorAll(".offer__slide"),
         next = document.querySelector(".offer__slider-next"),
         prev = document.querySelector(".offer__slider-prev"),
-        total = document.querySelector(".total"),
-        current = document.querySelector(".current")
+        total = document.querySelector("#total"),
+        current = document.querySelector("#current")
     let slideIndex = 1;
     showSlides(slideIndex);
     if(slides.length < 10){
@@ -389,6 +389,13 @@ window.addEventListener("DOMContentLoaded", () => {
         }
         slides.forEach((item) => (item.style.display = "none"));
         slides[slideIndex - 1].style.display = "block";
+
+        if(slides.length < 10){
+            current.textContent = `0${slideIndex}`
+        }else{
+            current.textContent=slideIndex
+        }
+
     }
     function plusSlides(idx) {
         showSlides((slideIndex += idx));
